@@ -4,14 +4,18 @@ import pickle
 import numpy as np
 from typing import List
 
-# Modelo de entrada
 class Entrada(BaseModel):
     edad: int
     ingresos: float
 
 app = FastAPI()
 
-# Carga el modelo
+# Ruta raíz para evitar 502 en Railway
+@app.get("/")
+def root():
+    return {"mensaje": "API corriendo correctamente"}
+
+# Cargar el modelo
 with open("model.pkl", "rb") as f:
     model = pickle.load(f)
 
